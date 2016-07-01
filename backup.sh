@@ -6,12 +6,16 @@ DATABASE=databasename
 USER=databaseuser
 PASS=databasepass
 BACKUP=/opt/backup/
+REMOTEFOLDER=remotefolder
 
 
 mysqldump --opt --user=${USER} --password=${PASS} ${DATABASE} | /usr/bin/pigz  >  ${BACKUP}${FILE}
-# wait
-(cd ${BACKUP} && . ../Dropbox-Uploader/dropbox_uploader.sh -q upload ${FILE} barbearclassico )
 
-/opt/Dropbox-Uploader/dropbox_uploader.sh list  barbearclassico   | /bin/grep -q  ${FILE} && rm  ${BACKUP}${FILE}
+# Upload file
+(cd ${BACKUP} && . ./Dropbox-Uploader/dropbox_uploader.sh -q upload ${FILE} ${REMOTEFOLDER} )
+
+
+# If sucessfuly uploaded; remove local copy 
+${BACKUP}/Dropbox-Uploader/dropbox_uploader.sh list  {$REMOTEFOLDER}   | /bin/grep -q  ${FILE} && rm  ${BACKUP}${FILE}
 
 
