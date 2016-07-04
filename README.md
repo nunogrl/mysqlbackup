@@ -10,9 +10,9 @@ This is the very first draft for making backups of mysql databases and drop them
 #Usage
 ##Configure as nedded
 
-Yeah, just edit the file. 
-
 Of course, you must configure Dropbox-uploader 
+
+Add a proper backup.ini file with your settings. 
 
 ##Create a cron job
 
@@ -32,5 +32,7 @@ A bunch of stuff:
 * add a restore option
 * add some options besides dropbox
 * send a mail with the result
-
+* add parameter of number of backups to keep (i.e. last 7 days only)
+* add md5sum check
+* add minimum size warning (case current backup is smaller than last backup
 
