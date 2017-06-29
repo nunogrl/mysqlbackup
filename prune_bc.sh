@@ -1,5 +1,27 @@
 #!/bin/sh 
 
+# Prunning logic
+# keep 1 backup per day for the last week
+# keep 1 backup per week for the last month
+# keep 1 backup per month for everything else.
+# ============================================
+# Goal:  
+# 1 year = 
+# 	11 backups (1 per month) 
+# 	4  mondays current month
+# 	7  days current week
+# ---------------------------
+# TOTAL 22 backups / year
+
+# if  FileOlderThanOneMonth  -a  NotFirstMonday 
+# 	DeleteRemotefile
+# else 
+# 	if FileOlderThanOneWeek -a  NotMonday
+# 		DeleteRemotefile
+# 	fi
+# fi
+
+
 prune ()
 {
 	fileDate=$(echo $1 | cut -d_ -f 2) 
@@ -49,26 +71,5 @@ done
 
 exit 0
 
-
-# Prunning logic
-# keep 1 backup per day for the last week
-# keep 1 backup per week for the last month
-# keep 1 backup per month for everything else.
-# ============================================
-# Goal:  
-# 1 year = 
-# 	11 backups (1 per month) 
-# 	4  mondays current month
-# 	7  days current week
-# ---------------------------
-# TOTAL 22 backups / year
-
-if  FileOlderThanOneMonth  -a  NotFirstMonday 
-	DeleteRemotefile
-else 
-	if FileOlderThanOneWeek -a  NotMonday
-		DeleteRemotefile
-	fi
-fi
 
 
